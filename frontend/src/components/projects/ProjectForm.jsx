@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import api from '../../api/axios';
+import API from '../../api/axios';
 import toast from 'react-hot-toast';
 
 export default function ProjectForm({ project, onSuccess, onCancel }) {
@@ -18,10 +18,10 @@ export default function ProjectForm({ project, onSuccess, onCancel }) {
     setLoading(true);
     try {
       if (isEdit) {
-        await api.put('/api/projects/${project.id}`, data);
+        await API.put(`/api/projects/${project.id}`, data);
         toast.success('Project updated');
       } else {
-        await api.post('/api/projects', data);
+        await API.post('/api/projects', data);
         toast.success('Project created');
       }
       onSuccess();

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import api from '../api/axios';
+import API from '../api/axios';
 import TaskCard from '../components/tasks/TaskCard';
 import TaskForm from '../components/tasks/TaskForm';
 import TaskFilters from '../components/tasks/TaskFilters';
@@ -27,7 +27,7 @@ export default function Tasks() {
   const fetchTasks = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await api.get('/api/tasks', {
+      const res = await API.get('/api/tasks', {
         params: {
           search: filters.search || undefined,
           status: filters.status || undefined,
@@ -48,15 +48,15 @@ export default function Tasks() {
 
   // Load supporting data once
   useEffect(() => {
-    api.get('/api/projects', { params: { limit: 100 } }).then(r => setProjects(r.data.data)).catch(() => {});
+    API.get('/api/projects', { params: { limit: 100 } }).then(r => setProjects(r.data.data)).catch(() => {});
     if (isAdmin) {
-      api.get('/api/users').then(r => setUsers(r.data)).catch(() => {});
+      API.get('/api/users').then(r => setUsers(r.data)).catch(() => {});
     }
   }, [isAdmin]);
 
   const handleDelete = async () => {
     try {
-      await api.delete('/api/tasks/${deleteTarget.id}`);
+      await API.delete(`/api/tasks/${deleteTarget.id}`);
       toast.success('Task deleted');
       setDeleteTarget(null);
       fetchTasks();

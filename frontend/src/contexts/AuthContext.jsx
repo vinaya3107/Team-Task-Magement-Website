@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import api from '../api/axios';
+import API from '../api/axios';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext(null);
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('ttm_token');
     if (!token) { setLoading(false); return; }
-    api.get('/api/auth/me')
+    API.get('/api/auth/me')
       .then((res) => setUser(res.data.user))
       .catch(() => {
         localStorage.removeItem('ttm_token');
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = useCallback(async (email, password) => {
-    const { data } = await api.post('/api/auth/login', { email, password });
+    const { data } = await API.post('/api/auth/login', { email, password });
     localStorage.setItem('ttm_token', data.token);
     localStorage.setItem('ttm_user',  JSON.stringify(data.user));
     setUser(data.user);
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signup = useCallback(async (name, email, password, role) => {
-    const { data } = await api.post('/api/auth/signup', { name, email, password, role });
+    const { data } = await API.post('/api/auth/signup', { name, email, password, role });
     localStorage.setItem('ttm_token', data.token);
     localStorage.setItem('ttm_user',  JSON.stringify(data.user));
     setUser(data.user);

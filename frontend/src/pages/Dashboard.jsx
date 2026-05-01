@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import api from '../api/axios';
+import API from '../api/axios';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import StatusBadge from '../components/common/StatusBadge';
 import { formatDate, isOverdue } from '../utils/helpers';
@@ -24,7 +24,7 @@ export default function Dashboard() {
 
   const fetchDashboard = useCallback(async () => {
     try {
-      const res = await api.get('/api/dashboard');
+      const res = await API.get('/api/dashboard');
       setData(res.data);
     } catch (_) {
       // handled by interceptor

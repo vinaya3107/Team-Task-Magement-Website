@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import api from '../api/axios';
+import API from '../api/axios';
 import { formatDate, getInitials, roleColor } from '../utils/helpers';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
@@ -14,7 +14,7 @@ export default function Users() {
 
   const fetchUsers = () => {
     setLoading(true);
-    api.get('/api/users')
+    API.get('/api/users')
       .then((r) => setUsers(r.data))
       .catch(() => toast.error('Failed to load users'))
       .finally(() => setLoading(false));

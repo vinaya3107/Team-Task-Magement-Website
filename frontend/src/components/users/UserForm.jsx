@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import api from '../../api/axios';
+import API from '../../api/axios';
 import toast from 'react-hot-toast';
 
 export default function UserForm({ onSuccess, onCancel }) {
@@ -13,7 +13,7 @@ export default function UserForm({ onSuccess, onCancel }) {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await api.post('/api/users', data);
+      await API.post('/api/users', data);
       toast.success('User created successfully');
       onSuccess();
     } catch (err) {

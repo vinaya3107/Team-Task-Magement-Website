@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../api/axios';
+import API from '../api/axios';
 import TaskCard from '../components/tasks/TaskCard';
 import TaskForm from '../components/tasks/TaskForm';
 import ProjectForm from '../components/projects/ProjectForm';
@@ -33,14 +33,14 @@ export default function ProjectDetails() {
     setLoading(true);
     try {
       const [projRes, taskRes] = await Promise.all([
-        api.get('/api/projects/${id}`),
-        api.get('/api/tasks', { params: { project_id: id, limit: 100 } }),
+        API.get(`/api/projects/${id}`),
+        API.get('/api/tasks', { params: { project_id: id, limit: 100 } }),
       ]);
       setProject(projRes.data);
       setTasks(taskRes.data.data);
 
       if (isAdmin) {
-        const usersRes = await api.get('/api/users');
+        const usersRes = await API.get('/api/users');
         setUsers(usersRes.data);
       }
     } catch (err) {
@@ -60,7 +60,7 @@ export default function ProjectDetails() {
       // Find user by email
       const user = users.find(u => u.email.toLowerCase() === addMemberEmail.toLowerCase());
       if (!user) { toast.error('User not found'); return; }
-      await api.post('/api/projects/${id}/members`, { user_id: user.id });
+      await API.post(`/api/projects/${id}/members`, { user_id: user.id });
       toast.success('Member added');
       setAddMemberEmail('');
       fetchData();
@@ -73,7 +73,7 @@ export default function ProjectDetails() {
 
   const handleRemoveMember = async (userId) => {
     try {
-      await api.delete('/api/projects/${id}/members/${userId}`);
+      await API.delete(`/api/projects/${id}/members/${userId}`);
       toast.success('Member removed');
       fetchData();
     } catch (err) {
@@ -83,7 +83,7 @@ export default function ProjectDetails() {
 
   const handleDeleteTask = async () => {
     try {
-      await api.delete('/api/tasks/${deleteTask.id}`);
+      await API.delete(`/api/tasks/${deleteTask.id}`);
       toast.success('Task deleted');
       setDeleteTask(null);
       fetchData();
@@ -94,7 +94,7 @@ export default function ProjectDetails() {
 
   const handleDeleteProject = async () => {
     try {
-      await api.delete('/api/projects/${id}`);
+      await API.delete(`/api/projects/${id}`);
       toast.success('Project deleted');
       navigate('/projects');
     } catch (err) {

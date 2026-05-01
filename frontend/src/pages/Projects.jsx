@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import api from '../api/axios';
+import API from '../api/axios';
 import ProjectCard from '../components/projects/ProjectCard';
 import ProjectForm from '../components/projects/ProjectForm';
 import ConfirmDialog from '../components/common/ConfirmDialog';
@@ -23,7 +23,7 @@ export default function Projects() {
   const fetchProjects = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await api.get('/api/projects', { params: { search, page, limit: LIMIT } });
+      const res = await API.get('/api/projects', { params: { search, page, limit: LIMIT } });
       setProjects(res.data.data);
       setTotal(res.data.total);
     } catch (_) {
@@ -37,7 +37,7 @@ export default function Projects() {
 
   const handleDelete = async () => {
     try {
-      await api.delete('/api/projects/${deleteTarget.id}`);
+      await API.delete(`/api/projects/${deleteTarget.id}`);
       toast.success('Project deleted');
       setDeleteTarget(null);
       fetchProjects();

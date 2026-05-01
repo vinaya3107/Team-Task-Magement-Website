@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import api from '../../api/axios';
+import API from '../../api/axios';
 import toast from 'react-hot-toast';
 
 const STATUS_OPTIONS = ['Todo', 'In Progress', 'Done'];
@@ -30,10 +30,10 @@ export default function TaskForm({ task, projects, users, defaultProjectId, onSu
         due_date:    data.due_date || null,
       };
       if (isEdit) {
-        await api.put('/api/tasks/${task.id}`, payload);
+        await API.put(`/api/tasks/${task.id}`, payload);
         toast.success('Task updated');
       } else {
-        await api.post('/api/tasks', payload);
+        await API.post('/api/tasks', payload);
         toast.success('Task created');
       }
       onSuccess();
