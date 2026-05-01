@@ -86,7 +86,7 @@ npm install
 npm run dev       # runs on http://localhost:5173
 ```
 
-Open **http://localhost:5173** → Sign up as ADMIN → create projects & tasks.
+Open **http://localhost:5173** → Login with Admin credentials (Email: `admin@example.com` / Password: `admin123`) → create members, projects & tasks.
 
 ---
 
@@ -169,7 +169,7 @@ Open **http://localhost:5173** → Sign up as ADMIN → create projects & tasks.
 
 ## 🎬 Demo Script
 
-1. **Sign up as ADMIN** → Dashboard shows empty stats
+1. **Login as ADMIN** (Email: `admin@example.com`, Password: `admin123`) → Dashboard shows empty stats
 2. **Create a Project** → Projects page → "+ New Project"
 3. **Add Members** → Project Details → add by email
 4. **Create Tasks** → Assign to members, set due dates
