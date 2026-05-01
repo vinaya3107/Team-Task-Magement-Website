@@ -33,7 +33,7 @@ router.get('/:id', auth, rbac('ADMIN'), async (req, res, next) => {
 // POST /api/users — Admin only, create new user
 router.post('/', auth, rbac('ADMIN'), async (req, res, next) => {
   try {
-    const bcrypt = require('bcrypt');
+    const bcrypt = require('bcryptjs');
     const { name, email, password, role } = req.body;
 
     const existing = await db.query('SELECT id FROM users WHERE email = $1', [email]);
