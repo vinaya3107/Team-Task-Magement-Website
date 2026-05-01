@@ -13,7 +13,7 @@ export default function UserForm({ onSuccess, onCancel }) {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await api.post('/users', data);
+      await api.post('/api/users', data);
       toast.success('User created successfully');
       onSuccess();
     } catch (err) {

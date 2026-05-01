@@ -27,7 +27,7 @@ export default function Tasks() {
   const fetchTasks = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await api.get('/tasks', {
+      const res = await api.get('/api/tasks', {
         params: {
           search: filters.search || undefined,
           status: filters.status || undefined,
@@ -48,15 +48,15 @@ export default function Tasks() {
 
   // Load supporting data once
   useEffect(() => {
-    api.get('/projects', { params: { limit: 100 } }).then(r => setProjects(r.data.data)).catch(() => {});
+    api.get('/api/projects', { params: { limit: 100 } }).then(r => setProjects(r.data.data)).catch(() => {});
     if (isAdmin) {
-      api.get('/users').then(r => setUsers(r.data)).catch(() => {});
+      api.get('/api/users').then(r => setUsers(r.data)).catch(() => {});
     }
   }, [isAdmin]);
 
   const handleDelete = async () => {
     try {
-      await api.delete(`/tasks/${deleteTarget.id}`);
+      await api.delete('/api/tasks/${deleteTarget.id}`);
       toast.success('Task deleted');
       setDeleteTarget(null);
       fetchTasks();

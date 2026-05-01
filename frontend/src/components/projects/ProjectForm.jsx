@@ -18,10 +18,10 @@ export default function ProjectForm({ project, onSuccess, onCancel }) {
     setLoading(true);
     try {
       if (isEdit) {
-        await api.put(`/projects/${project.id}`, data);
+        await api.put('/api/projects/${project.id}`, data);
         toast.success('Project updated');
       } else {
-        await api.post('/projects', data);
+        await api.post('/api/projects', data);
         toast.success('Project created');
       }
       onSuccess();

@@ -24,7 +24,7 @@ export default function Dashboard() {
 
   const fetchDashboard = useCallback(async () => {
     try {
-      const res = await api.get('/dashboard');
+      const res = await api.get('/api/dashboard');
       setData(res.data);
     } catch (_) {
       // handled by interceptor

@@ -30,10 +30,10 @@ export default function TaskForm({ task, projects, users, defaultProjectId, onSu
         due_date:    data.due_date || null,
       };
       if (isEdit) {
-        await api.put(`/tasks/${task.id}`, payload);
+        await api.put('/api/tasks/${task.id}`, payload);
         toast.success('Task updated');
       } else {
-        await api.post('/tasks', payload);
+        await api.post('/api/tasks', payload);
         toast.success('Task created');
       }
       onSuccess();

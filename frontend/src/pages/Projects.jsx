@@ -23,7 +23,7 @@ export default function Projects() {
   const fetchProjects = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await api.get('/projects', { params: { search, page, limit: LIMIT } });
+      const res = await api.get('/api/projects', { params: { search, page, limit: LIMIT } });
       setProjects(res.data.data);
       setTotal(res.data.total);
     } catch (_) {
@@ -37,7 +37,7 @@ export default function Projects() {
 
   const handleDelete = async () => {
     try {
-      await api.delete(`/projects/${deleteTarget.id}`);
+      await api.delete('/api/projects/${deleteTarget.id}`);
       toast.success('Project deleted');
       setDeleteTarget(null);
       fetchProjects();
