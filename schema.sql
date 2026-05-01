@@ -1,13 +1,6 @@
--- ============================================================
--- Team Task Manager — PostgreSQL Schema
--- ============================================================
 
--- Enable UUID extension (optional, using SERIAL for simplicity)
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- ============================================================
--- USERS
--- ============================================================
 CREATE TABLE IF NOT EXISTS users (
   id         SERIAL PRIMARY KEY,
   name       VARCHAR(100)        NOT NULL,
@@ -22,9 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_users_role  ON users(role);
 
--- ============================================================
--- PROJECTS
--- ============================================================
+
 CREATE TABLE IF NOT EXISTS projects (
   id          SERIAL PRIMARY KEY,
   name        VARCHAR(200)  NOT NULL,
@@ -36,9 +27,6 @@ CREATE TABLE IF NOT EXISTS projects (
 
 CREATE INDEX IF NOT EXISTS idx_projects_created_by ON projects(created_by);
 
--- ============================================================
--- PROJECT MEMBERS (join table)
--- ============================================================
 CREATE TABLE IF NOT EXISTS project_members (
   project_id  INTEGER NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
   user_id     INTEGER NOT NULL REFERENCES users(id)    ON DELETE CASCADE,
@@ -49,9 +37,6 @@ CREATE TABLE IF NOT EXISTS project_members (
 CREATE INDEX IF NOT EXISTS idx_pm_project ON project_members(project_id);
 CREATE INDEX IF NOT EXISTS idx_pm_user    ON project_members(user_id);
 
--- ============================================================
--- TASKS
--- ============================================================
 CREATE TABLE IF NOT EXISTS tasks (
   id          SERIAL PRIMARY KEY,
   title       VARCHAR(300)  NOT NULL,
@@ -71,9 +56,6 @@ CREATE INDEX IF NOT EXISTS idx_tasks_assigned   ON tasks(assigned_to);
 CREATE INDEX IF NOT EXISTS idx_tasks_status     ON tasks(status);
 CREATE INDEX IF NOT EXISTS idx_tasks_due_date   ON tasks(due_date);
 
--- ============================================================
--- Auto-update updated_at trigger
--- ============================================================
 CREATE OR REPLACE FUNCTION set_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
