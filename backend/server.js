@@ -11,7 +11,7 @@ const start = async () => {
     console.log('✅ PostgreSQL connected');
 
     // Auto-create Admin if not exists
-    const bcrypt = require('bcrypt');
+    const bcrypt = require('bcryptjs');
     const adminCheck = await db.query("SELECT id FROM users WHERE role = 'ADMIN'");
     if (adminCheck.rows.length === 0) {
       const hashed = await bcrypt.hash('admin123', 12);
